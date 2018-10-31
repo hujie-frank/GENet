@@ -1,4 +1,4 @@
-# Gather-Excite: Exploiting Feature Context in Convolutional Neural Networks <sub>([arXiv](https://arxiv.org/pdf/))</sub>
+# Gather-Excite: Exploiting Feature Context in Convolutional Neural Networks <sub>([arXiv](https://arxiv.org/pdf/1810.12348.pdf))</sub>
 By Jie Hu<sup>[1]</sup>, Li Shen<sup>[2]</sup>, Samuel Albanie<sup>[2]</sup>, Gang Sun<sup>[1]</sup>, Andrea Vedaldi<sup>[2]</sup>.
 
 [Momenta](https://momenta.ai/)<sup>[1]</sup> and [University of Oxford](http://www.robots.ox.ac.uk/~vgg/)<sup>[2]</sup>.
