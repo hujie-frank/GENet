@@ -36,7 +36,7 @@ Coming soon!
 
 ## Citation
 
-If you use Squeeze-and-Excitation Networks in your research, please cite the paper:
+If you use Gather-Excite in your research, please cite the paper:
     
     @inproceedings{hu2018genet,
       title={Gather-Excite: Exploiting Feature Context in Convolutional Neural Networks},
