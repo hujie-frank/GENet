@@ -273,7 +273,7 @@ layer {
   }
 }
 layer {
-  name: "conv2_1/sigmoid"
+  name: "conv2_1/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv2_1/gather"
   top: "conv2_1/gather"
@@ -529,7 +529,7 @@ layer {
   }
 }
 layer {
-  name: "conv2_2/sigmoid"
+  name: "conv2_2/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv2_2/gather"
   top: "conv2_2/gather"
@@ -732,7 +732,7 @@ layer {
   }
 }
 layer {
-  name: "conv2_3/sigmoid"
+  name: "conv2_3/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv2_3/gather"
   top: "conv2_3/gather"
@@ -935,7 +935,7 @@ layer {
   }
 }
 layer {
-  name: "conv3_1/sigmoid"
+  name: "conv3_1/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv3_1/gather"
   top: "conv3_1/gather"
@@ -1191,7 +1191,7 @@ layer {
   }
 }
 layer {
-  name: "conv3_2/sigmoid"
+  name: "conv3_2/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv3_2/gather"
   top: "conv3_2/gather"
@@ -1394,7 +1394,7 @@ layer {
   }
 }
 layer {
-  name: "conv3_3/sigmoid"
+  name: "conv3_3/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv3_3/gather"
   top: "conv3_3/gather"
@@ -1597,7 +1597,7 @@ layer {
   }
 }
 layer {
-  name: "conv3_4/sigmoid"
+  name: "conv3_4/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv3_4/gather"
   top: "conv3_4/gather"
@@ -1800,7 +1800,7 @@ layer {
   }
 }
 layer {
-  name: "conv4_1/sigmoid"
+  name: "conv4_1/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv4_1/gather"
   top: "conv4_1/gather"
@@ -2056,7 +2056,7 @@ layer {
   }
 }
 layer {
-  name: "conv4_2/sigmoid"
+  name: "conv4_2/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv4_2/gather"
   top: "conv4_2/gather"
@@ -2259,7 +2259,7 @@ layer {
   }
 }
 layer {
-  name: "conv4_3/sigmoid"
+  name: "conv4_3/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv4_3/gather"
   top: "conv4_3/gather"
@@ -2462,7 +2462,7 @@ layer {
   }
 }
 layer {
-  name: "conv4_4/sigmoid"
+  name: "conv4_4/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv4_4/gather"
   top: "conv4_4/gather"
@@ -2665,7 +2665,7 @@ layer {
   }
 }
 layer {
-  name: "conv4_5/sigmoid"
+  name: "conv4_5/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv4_5/gather"
   top: "conv4_5/gather"
@@ -2868,7 +2868,7 @@ layer {
   }
 }
 layer {
-  name: "conv4_6/sigmoid"
+  name: "conv4_6/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv4_6/gather"
   top: "conv4_6/gather"
@@ -3071,7 +3071,7 @@ layer {
   }
 }
 layer {
-  name: "conv5_1/sigmoid"
+  name: "conv5_1/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv5_1/gather"
   top: "conv5_1/gather"
@@ -3327,7 +3327,7 @@ layer {
   }
 }
 layer {
-  name: "conv5_2/sigmoid"
+  name: "conv5_2/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv5_2/gather"
   top: "conv5_2/gather"
@@ -3530,7 +3530,7 @@ layer {
   }
 }
 layer {
-  name: "conv5_3/sigmoid"
+  name: "conv5_3/excite/sigmoid"
   type: "Sigmoid"
   bottom: "conv5_3/gather"
   top: "conv5_3/gather"

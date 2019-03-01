@@ -1,4 +1,4 @@
-name: "ResNet50-GEP"
+name: "ResNet50-GEPP"
 layer {
   name: "data"
   type: "Input"
@@ -316,10 +316,76 @@ layer {
   }
 }
 layer {
-  name: "conv2_1/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv2_1/gather/relu"
+  type: "ReLU"
   bottom: "conv2_1/gather/bn"
   top: "conv2_1/gather/bn"
+}
+layer {
+  name: "conv2_1/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv2_1/gather/bn"
+  top: "conv2_1/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 16
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv2_1/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv2_1/excite/1x1_down"
+  top: "conv2_1/excite/1x1_down"
+}
+layer {
+  name: "conv2_1/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv2_1/excite/1x1_down"
+  top: "conv2_1/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv2_1/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv2_1/excite/1x1_up"
+  top: "conv2_1/excite/1x1_up"
 }
 layer {
   name: "conv2_1/1x1_proj"
@@ -377,7 +443,7 @@ layer {
 layer {
   name: "conv2_1/axpy"
   type: "Axpy"
-  bottom: "conv2_1/gather/bn"
+  bottom: "conv2_1/excite/1x1_up"
   bottom: "conv2_1/1x1_increase/bn"
   bottom: "conv2_1/1x1_proj/bn"
   top: "conv2_1/axpy"
@@ -615,15 +681,81 @@ layer {
   }
 }
 layer {
-  name: "conv2_2/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv2_2/gather/relu"
+  type: "ReLU"
   bottom: "conv2_2/gather/bn"
   top: "conv2_2/gather/bn"
 }
 layer {
+  name: "conv2_2/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv2_2/gather/bn"
+  top: "conv2_2/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 16
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv2_2/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv2_2/excite/1x1_down"
+  top: "conv2_2/excite/1x1_down"
+}
+layer {
+  name: "conv2_2/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv2_2/excite/1x1_down"
+  top: "conv2_2/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv2_2/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv2_2/excite/1x1_up"
+  top: "conv2_2/excite/1x1_up"
+}
+layer {
   name: "conv2_2/axpy"
   type: "Axpy"
-  bottom: "conv2_2/gather/bn"
+  bottom: "conv2_2/excite/1x1_up"
   bottom: "conv2_2/1x1_increase/bn"
   bottom: "conv2_1/axpy"
   top: "conv2_2/axpy"
@@ -861,15 +993,81 @@ layer {
   }
 }
 layer {
-  name: "conv2_3/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv2_3/gather/relu"
+  type: "ReLU"
   bottom: "conv2_3/gather/bn"
   top: "conv2_3/gather/bn"
 }
 layer {
+  name: "conv2_3/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv2_3/gather/bn"
+  top: "conv2_3/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 16
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv2_3/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv2_3/excite/1x1_down"
+  top: "conv2_3/excite/1x1_down"
+}
+layer {
+  name: "conv2_3/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv2_3/excite/1x1_down"
+  top: "conv2_3/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv2_3/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv2_3/excite/1x1_up"
+  top: "conv2_3/excite/1x1_up"
+}
+layer {
   name: "conv2_3/axpy"
   type: "Axpy"
-  bottom: "conv2_3/gather/bn"
+  bottom: "conv2_3/excite/1x1_up"
   bottom: "conv2_3/1x1_increase/bn"
   bottom: "conv2_2/axpy"
   top: "conv2_3/axpy"
@@ -1107,10 +1305,76 @@ layer {
   }
 }
 layer {
-  name: "conv3_1/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv3_1/gather/relu"
+  type: "ReLU"
   bottom: "conv3_1/gather/bn"
   top: "conv3_1/gather/bn"
+}
+layer {
+  name: "conv3_1/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv3_1/gather/bn"
+  top: "conv3_1/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_1/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv3_1/excite/1x1_down"
+  top: "conv3_1/excite/1x1_down"
+}
+layer {
+  name: "conv3_1/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv3_1/excite/1x1_down"
+  top: "conv3_1/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_1/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv3_1/excite/1x1_up"
+  top: "conv3_1/excite/1x1_up"
 }
 layer {
   name: "conv3_1/1x1_proj"
@@ -1168,7 +1432,7 @@ layer {
 layer {
   name: "conv3_1/axpy"
   type: "Axpy"
-  bottom: "conv3_1/gather/bn"
+  bottom: "conv3_1/excite/1x1_up"
   bottom: "conv3_1/1x1_increase/bn"
   bottom: "conv3_1/1x1_proj/bn"
   top: "conv3_1/axpy"
@@ -1406,15 +1670,81 @@ layer {
   }
 }
 layer {
-  name: "conv3_2/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv3_2/gather/relu"
+  type: "ReLU"
   bottom: "conv3_2/gather/bn"
   top: "conv3_2/gather/bn"
 }
 layer {
+  name: "conv3_2/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv3_2/gather/bn"
+  top: "conv3_2/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_2/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv3_2/excite/1x1_down"
+  top: "conv3_2/excite/1x1_down"
+}
+layer {
+  name: "conv3_2/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv3_2/excite/1x1_down"
+  top: "conv3_2/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_2/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv3_2/excite/1x1_up"
+  top: "conv3_2/excite/1x1_up"
+}
+layer {
   name: "conv3_2/axpy"
   type: "Axpy"
-  bottom: "conv3_2/gather/bn"
+  bottom: "conv3_2/excite/1x1_up"
   bottom: "conv3_2/1x1_increase/bn"
   bottom: "conv3_1/axpy"
   top: "conv3_2/axpy"
@@ -1652,15 +1982,81 @@ layer {
   }
 }
 layer {
-  name: "conv3_3/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv3_3/gather/relu"
+  type: "ReLU"
   bottom: "conv3_3/gather/bn"
   top: "conv3_3/gather/bn"
 }
 layer {
+  name: "conv3_3/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv3_3/gather/bn"
+  top: "conv3_3/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_3/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv3_3/excite/1x1_down"
+  top: "conv3_3/excite/1x1_down"
+}
+layer {
+  name: "conv3_3/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv3_3/excite/1x1_down"
+  top: "conv3_3/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_3/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv3_3/excite/1x1_up"
+  top: "conv3_3/excite/1x1_up"
+}
+layer {
   name: "conv3_3/axpy"
   type: "Axpy"
-  bottom: "conv3_3/gather/bn"
+  bottom: "conv3_3/excite/1x1_up"
   bottom: "conv3_3/1x1_increase/bn"
   bottom: "conv3_2/axpy"
   top: "conv3_3/axpy"
@@ -1898,15 +2294,81 @@ layer {
   }
 }
 layer {
-  name: "conv3_4/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv3_4/gather/relu"
+  type: "ReLU"
   bottom: "conv3_4/gather/bn"
   top: "conv3_4/gather/bn"
 }
 layer {
+  name: "conv3_4/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv3_4/gather/bn"
+  top: "conv3_4/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_4/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv3_4/excite/1x1_down"
+  top: "conv3_4/excite/1x1_down"
+}
+layer {
+  name: "conv3_4/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv3_4/excite/1x1_down"
+  top: "conv3_4/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv3_4/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv3_4/excite/1x1_up"
+  top: "conv3_4/excite/1x1_up"
+}
+layer {
   name: "conv3_4/axpy"
   type: "Axpy"
-  bottom: "conv3_4/gather/bn"
+  bottom: "conv3_4/excite/1x1_up"
   bottom: "conv3_4/1x1_increase/bn"
   bottom: "conv3_3/axpy"
   top: "conv3_4/axpy"
@@ -2144,10 +2606,76 @@ layer {
   }
 }
 layer {
-  name: "conv4_1/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv4_1/gather/relu"
+  type: "ReLU"
   bottom: "conv4_1/gather/bn"
   top: "conv4_1/gather/bn"
+}
+layer {
+  name: "conv4_1/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv4_1/gather/bn"
+  top: "conv4_1/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_1/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv4_1/excite/1x1_down"
+  top: "conv4_1/excite/1x1_down"
+}
+layer {
+  name: "conv4_1/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv4_1/excite/1x1_down"
+  top: "conv4_1/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 1024
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_1/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv4_1/excite/1x1_up"
+  top: "conv4_1/excite/1x1_up"
 }
 layer {
   name: "conv4_1/1x1_proj"
@@ -2205,7 +2733,7 @@ layer {
 layer {
   name: "conv4_1/axpy"
   type: "Axpy"
-  bottom: "conv4_1/gather/bn"
+  bottom: "conv4_1/excite/1x1_up"
   bottom: "conv4_1/1x1_increase/bn"
   bottom: "conv4_1/1x1_proj/bn"
   top: "conv4_1/axpy"
@@ -2399,7 +2927,7 @@ layer {
   }
   convolution_param {
     num_output: 1024
-    bias_term: false
+    bias_term : false
     kernel_size: 14
     group: 1024
     stride: 1
@@ -2443,15 +2971,81 @@ layer {
   }
 }
 layer {
-  name: "conv4_2/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv4_2/gather/relu"
+  type: "ReLU"
   bottom: "conv4_2/gather/bn"
   top: "conv4_2/gather/bn"
 }
 layer {
+  name: "conv4_2/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv4_2/gather/bn"
+  top: "conv4_2/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_2/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv4_2/excite/1x1_down"
+  top: "conv4_2/excite/1x1_down"
+}
+layer {
+  name: "conv4_2/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv4_2/excite/1x1_down"
+  top: "conv4_2/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 1024
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_2/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv4_2/excite/1x1_up"
+  top: "conv4_2/excite/1x1_up"
+}
+layer {
   name: "conv4_2/axpy"
   type: "Axpy"
-  bottom: "conv4_2/gather/bn"
+  bottom: "conv4_2/excite/1x1_up"
   bottom: "conv4_2/1x1_increase/bn"
   bottom: "conv4_1/axpy"
   top: "conv4_2/axpy"
@@ -2689,15 +3283,81 @@ layer {
   }
 }
 layer {
-  name: "conv4_3/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv4_3/gather/relu"
+  type: "ReLU"
   bottom: "conv4_3/gather/bn"
   top: "conv4_3/gather/bn"
 }
 layer {
+  name: "conv4_3/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv4_3/gather/bn"
+  top: "conv4_3/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_3/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv4_3/excite/1x1_down"
+  top: "conv4_3/excite/1x1_down"
+}
+layer {
+  name: "conv4_3/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv4_3/excite/1x1_down"
+  top: "conv4_3/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 1024
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_3/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv4_3/excite/1x1_up"
+  top: "conv4_3/excite/1x1_up"
+}
+layer {
   name: "conv4_3/axpy"
   type: "Axpy"
-  bottom: "conv4_3/gather/bn"
+  bottom: "conv4_3/excite/1x1_up"
   bottom: "conv4_3/1x1_increase/bn"
   bottom: "conv4_2/axpy"
   top: "conv4_3/axpy"
@@ -2935,15 +3595,81 @@ layer {
   }
 }
 layer {
-  name: "conv4_4/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv4_4/gather/relu"
+  type: "ReLU"
   bottom: "conv4_4/gather/bn"
   top: "conv4_4/gather/bn"
 }
 layer {
+  name: "conv4_4/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv4_4/gather/bn"
+  top: "conv4_4/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_4/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv4_4/excite/1x1_down"
+  top: "conv4_4/excite/1x1_down"
+}
+layer {
+  name: "conv4_4/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv4_4/excite/1x1_down"
+  top: "conv4_4/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 1024
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_4/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv4_4/excite/1x1_up"
+  top: "conv4_4/excite/1x1_up"
+}
+layer {
   name: "conv4_4/axpy"
   type: "Axpy"
-  bottom: "conv4_4/gather/bn"
+  bottom: "conv4_4/excite/1x1_up"
   bottom: "conv4_4/1x1_increase/bn"
   bottom: "conv4_3/axpy"
   top: "conv4_4/axpy"
@@ -3181,15 +3907,81 @@ layer {
   }
 }
 layer {
-  name: "conv4_5/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv4_5/gather/relu"
+  type: "ReLU"
   bottom: "conv4_5/gather/bn"
   top: "conv4_5/gather/bn"
 }
 layer {
+  name: "conv4_5/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv4_5/gather/bn"
+  top: "conv4_5/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_5/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv4_5/excite/1x1_down"
+  top: "conv4_5/excite/1x1_down"
+}
+layer {
+  name: "conv4_5/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv4_5/excite/1x1_down"
+  top: "conv4_5/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 1024
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_5/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv4_5/excite/1x1_up"
+  top: "conv4_5/excite/1x1_up"
+}
+layer {
   name: "conv4_5/axpy"
   type: "Axpy"
-  bottom: "conv4_5/gather/bn"
+  bottom: "conv4_5/excite/1x1_up"
   bottom: "conv4_5/1x1_increase/bn"
   bottom: "conv4_4/axpy"
   top: "conv4_5/axpy"
@@ -3427,15 +4219,81 @@ layer {
   }
 }
 layer {
-  name: "conv4_6/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv4_6/gather/relu"
+  type: "ReLU"
   bottom: "conv4_6/gather/bn"
   top: "conv4_6/gather/bn"
 }
 layer {
+  name: "conv4_6/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv4_6/gather/bn"
+  top: "conv4_6/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_6/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv4_6/excite/1x1_down"
+  top: "conv4_6/excite/1x1_down"
+}
+layer {
+  name: "conv4_6/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv4_6/excite/1x1_down"
+  top: "conv4_6/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 1024
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv4_6/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv4_6/excite/1x1_up"
+  top: "conv4_6/excite/1x1_up"
+}
+layer {
   name: "conv4_6/axpy"
   type: "Axpy"
-  bottom: "conv4_6/gather/bn"
+  bottom: "conv4_6/excite/1x1_up"
   bottom: "conv4_6/1x1_increase/bn"
   bottom: "conv4_5/axpy"
   top: "conv4_6/axpy"
@@ -3673,10 +4531,76 @@ layer {
   }
 }
 layer {
-  name: "conv5_1/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv5_1/gather/relu"
+  type: "ReLU"
   bottom: "conv5_1/gather/bn"
   top: "conv5_1/gather/bn"
+}
+layer {
+  name: "conv5_1/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv5_1/gather/bn"
+  top: "conv5_1/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv5_1/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv5_1/excite/1x1_down"
+  top: "conv5_1/excite/1x1_down"
+}
+layer {
+  name: "conv5_1/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv5_1/excite/1x1_down"
+  top: "conv5_1/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2048
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv5_1/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv5_1/excite/1x1_up"
+  top: "conv5_1/excite/1x1_up"
 }
 layer {
   name: "conv5_1/1x1_proj"
@@ -3734,7 +4658,7 @@ layer {
 layer {
   name: "conv5_1/axpy"
   type: "Axpy"
-  bottom: "conv5_1/gather/bn"
+  bottom: "conv5_1/excite/1x1_up"
   bottom: "conv5_1/1x1_increase/bn"
   bottom: "conv5_1/1x1_proj/bn"
   top: "conv5_1/axpy"
@@ -3972,15 +4896,81 @@ layer {
   }
 }
 layer {
-  name: "conv5_2/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv5_2/gather/relu"
+  type: "ReLU"
   bottom: "conv5_2/gather/bn"
   top: "conv5_2/gather/bn"
 }
 layer {
+  name: "conv5_2/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv5_2/gather/bn"
+  top: "conv5_2/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv5_2/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv5_2/excite/1x1_down"
+  top: "conv5_2/excite/1x1_down"
+}
+layer {
+  name: "conv5_2/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv5_2/excite/1x1_down"
+  top: "conv5_2/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2048
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv5_2/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv5_2/excite/1x1_up"
+  top: "conv5_2/excite/1x1_up"
+}
+layer {
   name: "conv5_2/axpy"
   type: "Axpy"
-  bottom: "conv5_2/gather/bn"
+  bottom: "conv5_2/excite/1x1_up"
   bottom: "conv5_2/1x1_increase/bn"
   bottom: "conv5_1/axpy"
   top: "conv5_2/axpy"
@@ -4218,15 +5208,81 @@ layer {
   }
 }
 layer {
-  name: "conv5_3/excite/sigmoid"
-  type: "Sigmoid"
+  name: "conv5_3/gather/relu"
+  type: "ReLU"
   bottom: "conv5_3/gather/bn"
   top: "conv5_3/gather/bn"
 }
 layer {
+  name: "conv5_3/excite/1x1_down"
+  type: "Convolution"
+  bottom: "conv5_3/gather/bn"
+  top: "conv5_3/excite/1x1_down"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv5_3/excite/1x1_down/relu"
+  type: "ReLU"
+  bottom: "conv5_3/excite/1x1_down"
+  top: "conv5_3/excite/1x1_down"
+}
+layer {
+  name: "conv5_3/excite/1x1_up"
+  type: "Convolution"
+  bottom: "conv5_3/excite/1x1_down"
+  top: "conv5_3/excite/1x1_up"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2048
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "conv5_3/excite/sigmoid"
+  type: "Sigmoid"
+  bottom: "conv5_3/excite/1x1_up"
+  top: "conv5_3/excite/1x1_up"
+}
+layer {
   name: "conv5_3/axpy"
   type: "Axpy"
-  bottom: "conv5_3/gather/bn"
+  bottom: "conv5_3/excite/1x1_up"
   bottom: "conv5_3/1x1_increase/bn"
   bottom: "conv5_2/axpy"
   top: "conv5_3/axpy"
@@ -4238,10 +5294,10 @@ layer {
   top: "conv5_3/axpy"
 }
 layer {
-  name: "avepool/7x7"
+  name: "pool5/7x7_s1"
   type: "Pooling"
   bottom: "conv5_3/axpy"
-  top: "avepool/7x7"
+  top: "pool5/7x7_s1"
   pooling_param {
     pool: AVE
     kernel_size: 7
@@ -4251,7 +5307,7 @@ layer {
 layer {
   name: "classifier"
   type: "InnerProduct"
-  bottom: "avepool/7x7"
+  bottom: "pool5/7x7_s1"
   top: "classifier"
   param {
     lr_mult: 1
