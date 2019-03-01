@@ -29,7 +29,6 @@ We use the data augmentation strategies with our previous work [SENet](https://g
 There are three new layers introduced for efficient training and inference, these are *Axpy*, *DepthwiseConvolution* and *CuDNNBatchNorm* layers.  
 + The [*Axpy*](https://github.com/hujie-frank/SENet/blob/master/src/caffe/layers/) layer is already implemented in [SENet](https://github.com/hujie-frank/SENet).
 + As for [*DepthwiseConvolution*](https://github.com/yonghenglh6/DepthwiseConvolution/tree/master/caffe/src/caffe/layers) layer, it is publicly avaliable at the [repo](https://github.com/yonghenglh6/DepthwiseConvolution/), or you can directly replace it with the standard *Convolution* layer if you don't care about the operational efficiency.
-+ The *CuDNNBatchNorm* layer will be released in these days.
 
 ## Trained Models
 Coming soon!

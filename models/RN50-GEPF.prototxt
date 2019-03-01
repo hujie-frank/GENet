@@ -1,21 +1,19 @@
 name: "ResNet50-GEPF"
 layer {
-  name: "data"
+  name: "input"
   type: "Input"
   top: "data"
-  input_param {
-    dim: 32
-    dim: 3 
-    dim: 224
-    dim: 224
-  }
-}
-layer {
-  name: "label"
-  type: "Input"
   top: "label"
   input_param {
-    dim: 32
+    shape: {
+      dim: 32
+      dim: 3
+      dim: 224
+      dim: 224
+    }
+    shape: {
+      dim: 32
+    }
   }
 }
 layer {
@@ -59,7 +57,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -129,7 +127,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -189,7 +187,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -248,7 +246,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -318,7 +316,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -385,7 +383,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -445,7 +443,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -504,7 +502,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -588,7 +586,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -648,7 +646,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -707,7 +705,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -791,7 +789,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -851,7 +849,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -910,7 +908,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -980,7 +978,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1047,7 +1045,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1107,7 +1105,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1166,7 +1164,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1250,7 +1248,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1310,7 +1308,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1369,7 +1367,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1453,7 +1451,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1513,7 +1511,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1572,7 +1570,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1656,7 +1654,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1716,7 +1714,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1775,7 +1773,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1845,7 +1843,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1912,7 +1910,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -1972,7 +1970,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2031,7 +2029,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2115,7 +2113,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2175,7 +2173,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2234,7 +2232,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2318,7 +2316,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2378,7 +2376,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2437,7 +2435,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2521,7 +2519,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2581,7 +2579,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2640,7 +2638,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2724,7 +2722,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2784,7 +2782,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2843,7 +2841,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2927,7 +2925,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -2987,7 +2985,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3046,7 +3044,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3116,7 +3114,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3183,7 +3181,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3243,7 +3241,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3302,7 +3300,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3386,7 +3384,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3446,7 +3444,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
@@ -3505,7 +3503,7 @@ layer {
     lr_mult: 0
     decay_mult: 0
   }
-  batch_norm_param {
+  cudnn_batch_norm_param {
     frozen: false
     momentum: 0.95
     scale_filler {
